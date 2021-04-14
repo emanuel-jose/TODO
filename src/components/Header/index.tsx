@@ -1,7 +1,7 @@
 import { Container } from "./styles";
 
 const Header: React.FC = () => {
-  return <Container>HEADER</Container>;
+  return <Container>Todo List</Container>;
 };
 
 export default Header;

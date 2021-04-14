@@ -8,5 +8,5 @@ export const Container = styled.div`
   font-size: 30px;
   text-align: center;
   line-height: 5rem;
-  background-color: black;
+  background-color: #0a4a0a;
 `;

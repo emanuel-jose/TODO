@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "./styles";
+import { Container, ButtonContainer } from "./styles";
 import Button from "../Button";
 import Input from "../Input";
 import TextArea from "../TextArea";
@@ -40,6 +40,7 @@ const FormCard: React.FC<Modal> = ({ setOpen, setCards, cards, editID }) => {
     let newCards = [...cards, task];
 
     setCards(newCards);
+    setOpen(false);
   };
 
   const editCard = () => {
@@ -63,10 +64,12 @@ const FormCard: React.FC<Modal> = ({ setOpen, setCards, cards, editID }) => {
     <Container>
       <Input placeholder="Title" onChange={handleTitle}></Input>
       <TextArea placeholder="description" onChange={handleDesc} />
-      <Button onClick={editID ? editCard : createCard} type="submit">
-        Create
-      </Button>
-      <Button onClick={closeModal}>Cancel</Button>
+      <ButtonContainer>
+        <Button onClick={editID ? editCard : createCard} type="submit">
+          {editID ? "Update" : "Create"}
+        </Button>
+        <Button onClick={closeModal}>Cancel</Button>
+      </ButtonContainer>
     </Container>
   );
 };

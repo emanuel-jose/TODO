@@ -18,9 +18,15 @@ const DeleteModal: React.FC<Props> = ({ setOpenModal, deleteCard }) => {
   };
   return (
     <Container>
-      <h1>Tem certeza !</h1>
-      <Button onClick={handleConfirm}>Confirm</Button>
-      <Button onClick={handleCancel}>Cancel</Button>
+      <h1>Are you sure you will delete this ?</h1>
+      <div className="Buttons">
+        <Button className="confirm" onClick={handleConfirm}>
+          Confirm
+        </Button>
+        <Button className="cancel" onClick={handleCancel}>
+          Cancel
+        </Button>
+      </div>
     </Container>
   );
 };

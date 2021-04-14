@@ -20,7 +20,9 @@ const CardList: React.FC = () => {
   return (
     <Container>
       {/* button add que chama uma função que abre o modal */}
-      <Button onClick={openModal}>Add</Button>
+      <Button onClick={openModal} colorBase="red">
+        Add
+      </Button>
       {open && <FormCard setOpen={setOpen} setCards={setCards} cards={cards} />}
       {/* container que lista todos os cards */}
 

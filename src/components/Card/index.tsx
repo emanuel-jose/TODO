@@ -1,4 +1,4 @@
-import { Container, Content, HeaderCard } from "./styles";
+import { CardContainer, Content, HeaderCard } from "./styles";
 import React, { useState } from "react";
 import Button from "../Button";
 import DeleteModal from "../DeleteModal";
@@ -54,15 +54,17 @@ const Card: React.FC<Props> = ({ task, cards, setCards }) => {
   };
 
   return (
-    <Container>
+    <CardContainer>
       <HeaderCard>
         <Button onClick={changeTask}>Edit</Button>
         <Button onClick={confirm}>Delete</Button>
       </HeaderCard>
       <Content>
         <Input type="checkbox" onChange={handleChange} />
-        <h1>{task.title}</h1>
-        <p>{task.description}</p>
+        <div className="infos">
+          <h1>{task.title}</h1>
+          <p>{task.description}</p>
+        </div>
       </Content>
 
       {openModal && (
@@ -77,7 +79,7 @@ const Card: React.FC<Props> = ({ task, cards, setCards }) => {
           editID={task.id}
         />
       )}
-    </Container>
+    </CardContainer>
   );
 };
 
