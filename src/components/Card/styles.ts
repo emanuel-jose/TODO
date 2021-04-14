@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: tomato;
-  color: #fff;
-  width: 15rem;
-  height: 16rem;
+  div {
+    background-color: tomato;
+    color: #fff;
+    width: 15rem;
+    height: 8rem;
+  }
 `;
 
 export const HeaderCard = styled.div`

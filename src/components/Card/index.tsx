@@ -2,6 +2,8 @@ import { Container, Content, HeaderCard } from "./styles";
 import React, { useState } from "react";
 import Button from "../Button";
 import DeleteModal from "../DeleteModal";
+import FormEdit from "../FormCard";
+import Input from "../Input";
 
 import { Cards } from "../../interfaces/cards";
 
@@ -19,11 +21,11 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ task, cards, setCards }) => {
-  const [taskState, setTask] = useState<Task>();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
 
-  const changeTask = (newTask: Task) => {
-    setTask(newTask);
+  const changeTask = () => {
+    setOpenEdit(true);
   };
 
   const confirm = (): void => {
@@ -36,20 +38,44 @@ const Card: React.FC<Props> = ({ task, cards, setCards }) => {
     setCards(updateCards);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.checked);
+
+    let cardChange = cards.filter((card) => card.id === task.id);
+    cardChange[0].completed = e.target.checked;
+
+    let updateCards = cards.map((card) => card);
+
+    let index = updateCards.findIndex((card) => card.id === cardChange[0].id);
+
+    updateCards.splice(index, 1, cardChange[0]);
+
+    setCards(updateCards);
+  };
+
   return (
     <Container>
       <HeaderCard>
-        <Button>Edit</Button>
+        <Button onClick={changeTask}>Edit</Button>
         <Button onClick={confirm}>Delete</Button>
       </HeaderCard>
       <Content>
-        <div>{task.completed ? "Completado" : "Not"}</div>
+        <Input type="checkbox" onChange={handleChange} />
         <h1>{task.title}</h1>
         <p>{task.description}</p>
       </Content>
 
       {openModal && (
         <DeleteModal setOpenModal={setOpenModal} deleteCard={deleteCard} />
+      )}
+
+      {openEdit && (
+        <FormEdit
+          setOpen={setOpenEdit}
+          setCards={setCards}
+          cards={cards}
+          editID={task.id}
+        />
       )}
     </Container>
   );

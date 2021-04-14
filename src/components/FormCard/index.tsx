@@ -10,9 +10,10 @@ interface Modal {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setCards: React.Dispatch<React.SetStateAction<Cards[]>>;
   cards: Cards[];
+  editID?: number;
 }
 
-const FormCard: React.FC<Modal> = ({ setOpen, setCards, cards }) => {
+const FormCard: React.FC<Modal> = ({ setOpen, setCards, cards, editID }) => {
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
 
@@ -41,17 +42,30 @@ const FormCard: React.FC<Modal> = ({ setOpen, setCards, cards }) => {
     setCards(newCards);
   };
 
+  const editCard = () => {
+    let cardToEdit = cards.filter((card) => card.id === editID);
+
+    let updateCards = cards.map((card) => card);
+
+    let index = updateCards.findIndex((card) => card.id === cardToEdit[0].id);
+
+    cardToEdit[0].title = title;
+    cardToEdit[0].description = text;
+
+    updateCards.splice(index, 1, cardToEdit[0]);
+
+    setCards(updateCards);
+
+    setOpen(false);
+  };
+
   return (
     <Container>
-      {/* input title */}
       <Input placeholder="Title" onChange={handleTitle}></Input>
-      {/* input text area description */}
       <TextArea placeholder="description" onChange={handleDesc} />
-      {/* criar */}
-      <Button onClick={createCard} type="submit">
+      <Button onClick={editID ? editCard : createCard} type="submit">
         Create
       </Button>
-      {/* cancelar */}
       <Button onClick={closeModal}>Cancel</Button>
     </Container>
   );
